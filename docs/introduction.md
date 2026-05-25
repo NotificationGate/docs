@@ -1,7 +1,6 @@
 ---
 id: introduction
 title: Introduction
-slug: /
 ---
 
 ## What is NotificationGate?
