@@ -22,6 +22,7 @@ const config: Config = {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/NotificationGate/docs/tree/main/',
+          homePageId: 'introduction',
         },
         blog: false,
         theme: { customCss: './src/css/custom.css' },

@@ -1,23 +1,352 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
-
-.heroBanner {
-  padding: 4rem 0;
+/* ── Hero ── */
+.hero {
+  padding: 80px 24px 64px;
   text-align: center;
+  background: linear-gradient(180deg, #0f0f18 0%, #0a0a12 100%);
   position: relative;
   overflow: hidden;
 }
-
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(79,70,229,0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
 }
+.heroGlow {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(79,70,229,0.15) 0%, transparent 65%);
+  pointer-events: none;
+}
+.heroInner {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.heroBadge {
+  display: inline-block;
+  padding: 5px 14px;
+  background: rgba(79,70,229,0.12);
+  border: 1px solid rgba(79,70,229,0.3);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #a5b4fc;
+  margin-bottom: 24px;
+}
+.heroTitle {
+  font-size: clamp(36px, 6vw, 60px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+  color: #f0f0f0;
+  margin-bottom: 20px;
+}
+.heroAccent {
+  color: #818cf8;
+  font-style: italic;
+  font-weight: 300;
+}
+.heroSub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+  max-width: 580px;
+  margin: 0 auto 36px;
+}
+.heroActions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 26px;
+  background: #4f46e5;
+  color: #fff !important;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: background 0.15s, transform 0.15s;
+}
+.btnPrimary:hover { background: #4338ca; transform: translateY(-1px); }
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 26px;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.75) !important;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 8px;
+  text-decoration: none !important;
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: background 0.15s;
+}
+.btnSecondary:hover { background: rgba(255,255,255,0.1); }
 
-.buttons {
+/* Code block */
+.heroCode {
+  background: #0d0d14;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: left;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  max-width: 640px;
+  margin: 0 auto;
+}
+.codeChrome {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.codeFilename {
+  margin-left: 8px;
+  font-size: 11px;
+  font-family: monospace;
+  color: rgba(255,255,255,0.25);
+}
+.codePre {
+  margin: 0;
+  padding: 20px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #c9d1d9;
+  overflow-x: auto;
+  background: none !important;
+}
+.codeStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: rgba(74,222,128,0.04);
+  font-size: 12px;
+  font-family: monospace;
+}
+.statusDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 6px rgba(74,222,128,0.6);
+}
+.statusTime { margin-left: auto; color: rgba(255,255,255,0.25); }
+
+/* ── Sections ── */
+.sectionInner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+}
+.sectionLabel {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #6366f1;
+  margin-bottom: 12px;
+}
+.sectionTitle {
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #f0f0f0;
+  margin-bottom: 12px;
+}
+.sectionSub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 48px;
+}
+
+/* ── Features ── */
+.features {
+  padding: 80px 24px;
+  background: #0a0a12;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+  text-align: left;
+}
+.featureCard {
+  background: #111120;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 24px;
+}
+.featureIcon {
+  font-size: 24px;
+  margin-bottom: 14px;
+}
+.featureTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f0f0f0;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.featureDesc {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── SDKs ── */
+.sdkSection {
+  padding: 80px 24px;
+  background: #0d0d18;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.sdkGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 40px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.sdkCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: #111120;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  text-decoration: none !important;
+  transition: border-color 0.15s, background 0.15s;
+}
+.sdkCard:hover {
+  background: #15152a;
+  border-color: rgba(99,102,241,0.35);
+}
+.sdkDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sdkLang {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f0f0f0;
+  margin-bottom: 3px;
+}
+.sdkInstall {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  font-family: monospace;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.sdkArrow {
+  margin-left: auto;
+  color: rgba(255,255,255,0.25);
+  font-size: 16px;
+}
+
+/* ── Pricing ── */
+.pricing {
+  padding: 80px 24px;
+  background: #0a0a12;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 48px;
+}
+.planCard {
+  background: #111120;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+.planHighlight {
+  border-color: rgba(99,102,241,0.5);
+  background: #13122a;
+}
+.planName { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+.planPrice { font-size: 32px; font-weight: 800; color: #f0f0f0; letter-spacing: -0.04em; }
+.planPer { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.4); }
+.planEmails { font-size: 13px; color: rgba(255,255,255,0.4); margin: 8px 0 20px; }
+.planCta {
+  display: block;
+  padding: 9px 0;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.75) !important;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: background 0.15s;
+}
+.planCta:hover { background: rgba(255,255,255,0.1); }
+.planCtaPrimary {
+  display: block;
+  padding: 9px 0;
+  background: #4f46e5;
+  color: #fff !important;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: background 0.15s;
+}
+.planCtaPrimary:hover { background: #4338ca; }
+
+/* ── CTA ── */
+.cta {
+  padding: 80px 24px;
+  background: #0d0d18;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+}
+.ctaInner { max-width: 560px; margin: 0 auto; }
+.ctaTitle { font-size: clamp(24px, 3vw, 34px); font-weight: 800; color: #f0f0f0; letter-spacing: -0.03em; margin-bottom: 10px; }
+.ctaSub { font-size: 15px; color: rgba(255,255,255,0.45); margin-bottom: 28px; }
+.ctaActions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .featureGrid { grid-template-columns: 1fr 1fr; }
+  .pricingGrid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .featureGrid { grid-template-columns: 1fr; }
+  .pricingGrid { grid-template-columns: 1fr; }
 }
