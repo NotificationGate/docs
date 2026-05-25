@@ -35,7 +35,7 @@ const config: Config = {
       logo: { alt: 'NotificationGate', src: 'img/logo.svg' },
       items: [
         { type: 'docSidebar', sidebarId: 'docs', label: 'Docs', position: 'left' },
-        { href: 'https://app.notificationgate.com', label: 'Dashboard', position: 'right' },
+        { href: 'https://notificationgate.com', label: 'Dashboard', position: 'right' },
         { href: 'https://github.com/NotificationGate', label: 'GitHub', position: 'right' },
       ],
     },
@@ -48,7 +48,7 @@ const config: Config = {
           { label: 'SDKs', to: '/sdks/nodejs' },
         ]},
         { title: 'Product', items: [
-          { label: 'Dashboard', href: 'https://app.notificationgate.com' },
+          { label: 'Dashboard', href: 'https://notificationgate.com' },
           { label: 'Pricing', href: 'https://notificationgate.com#pricing' },
           { label: 'Status', href: 'https://status.notificationgate.com' },
         ]},
