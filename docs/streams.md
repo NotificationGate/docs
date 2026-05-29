@@ -42,4 +42,4 @@ If bounce or complaint rates exceed safe thresholds, sending is paused automatic
 | Bounce rate | > 2.5% | Sending paused |
 | Complaint rate | > 0.05% | Sending paused |
 
-You'll be notified via webhook and email. Resume sending from the dashboard after addressing the issue.
+You'll be notified via webhook. Resume sending from the dashboard after addressing the issue.

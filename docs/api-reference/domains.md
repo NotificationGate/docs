@@ -3,17 +3,15 @@ id: domains
 title: Domains
 ---
 
-Manage sending domains via the API. All domain operations require a live API key.
+Manage sending domains. You must verify a domain before sending from it.
 
 ## Add domain
 
-**POST** `https://notificationgate.com/api/v1/domains`
+**POST** `/v1/domains`
 
 ```json
 { "domain": "yourdomain.com" }
 ```
-
-**Response:**
 
 ```json
 {
@@ -44,9 +42,7 @@ Add all 3 CNAME records to your DNS provider, then call verify.
 
 ## Verify domain
 
-**GET** `https://notificationgate.com/api/v1/domains/:id/verify`
-
-Triggers a DNS check. Returns updated status.
+**GET** `/v1/domains/:id/verify`
 
 ```json
 {
@@ -64,7 +60,7 @@ Triggers a DNS check. Returns updated status.
 
 ## List domains
 
-**GET** `https://notificationgate.com/api/v1/domains`
+**GET** `/v1/domains`
 
 ```json
 {
@@ -79,8 +75,16 @@ Triggers a DNS check. Returns updated status.
 }
 ```
 
+## Get domain
+
+**GET** `/v1/domains/:id`
+
 ## Remove domain
 
-**DELETE** `https://notificationgate.com/api/v1/domains/:id`
+**DELETE** `/v1/domains/:id`
 
-Returns `204 No Content` on success. Emails from this domain will fail after deletion.
+```json
+{ "message": "domain removed" }
+```
+
+Emails sent from this domain will fail after deletion.

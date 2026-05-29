@@ -3,58 +3,54 @@ id: bounce-handling
 title: Bounce Handling
 ---
 
-NotificationGate automatically processes bounces and spam complaints from AWS SES via SNS. No configuration needed.
+Bounces and spam complaints are processed automatically via AWS SES — no configuration needed.
 
 ## What happens automatically
 
 | Event | Action |
 |-------|--------|
 | Hard bounce | Address suppressed immediately |
-| Soft bounce | Logged and retried after 30 minutes |
+| Soft bounce | Logged |
 | Spam complaint | Address suppressed immediately |
 
-Hard bounces indicate permanent delivery failures (e.g. address doesn't exist). Soft bounces are temporary (e.g. mailbox full).
+Hard bounces are permanent delivery failures (address doesn't exist). Soft bounces are temporary (mailbox full, etc.).
 
 ## Reputation protection
 
-If your account exceeds safe thresholds, sending is automatically paused to protect your domain reputation:
+Sending is automatically paused if your account exceeds:
 
-| Metric | Threshold | Action |
-|--------|-----------|--------|
-| Bounce rate | > 2.5% | Sending paused, you are notified |
-| Complaint rate | > 0.05% | Sending paused, you are notified |
+| Metric | Threshold |
+|--------|-----------|
+| Bounce rate | > 2.5% |
+| Complaint rate | > 0.05% |
 
-These match AWS SES enforcement thresholds. Exceeding them without intervention risks SES account suspension.
+These match AWS SES enforcement thresholds. Resume sending from the dashboard after addressing the issue.
 
 ## Suppression list
 
-Suppressed addresses are visible in your dashboard under **Settings → Suppressions** and accessible via the [Suppressions API](/api-reference/suppressions).
-
-You can remove individual addresses from the suppression list once the underlying issue has been resolved (e.g. the recipient fixed their mailbox).
+Suppressed addresses appear in your dashboard under **Settings → Suppressions** and via the [Suppressions API](/api-reference/suppressions). You can remove addresses once the underlying issue is resolved.
 
 ## Webhook events
 
-You receive real-time events for every bounce and complaint:
+If you have a webhook configured, you'll receive events for every bounce and complaint:
 
 ```json
 {
-  "event": "email.bounced",
+  "event_type": "email.bounced",
   "email_id": "01234567-89ab-cdef-0123-456789abcdef",
   "recipient": "user@example.com",
-  "stream": "transactional",
   "timestamp": "2026-05-19T10:00:00Z",
   "data": {
-    "bounce_type": "Permanent",
-    "bounce_subtype": "General"
+    "bounce_type": "hard",
+    "reason": "550 5.1.1 The email account does not exist"
   }
 }
 ```
 
-Set up webhooks in your dashboard under **Settings → Webhooks** or via the [Webhooks API](/api-reference/webhooks).
+See [Webhooks](/api-reference/webhooks) to register a webhook URL.
 
 ## Best practices
 
-- Monitor your bounce rate in the **Analytics** dashboard
 - Use `ng_sandbox_` keys in CI/CD to avoid sending to test addresses
-- Never re-add hard-bounced addresses — they are bouncing for a reason
+- Never re-add hard-bounced addresses
 - Validate email addresses before sending to reduce bounce rates

@@ -3,17 +3,15 @@ id: webhooks
 title: Webhooks
 ---
 
-Receive real-time delivery events for emails you send. NotificationGate signs every payload with HMAC-SHA256 so you can verify authenticity.
+Receive real-time delivery events. Every payload is signed with HMAC-SHA256 — see [Webhook Signatures](/webhook-signatures).
 
-## Register webhook
+## Register
 
-**POST** `https://notificationgate.com/api/v1/webhooks`
+**POST** `/v1/webhooks`
 
 ```json
 { "url": "https://yourapp.com/webhooks/email" }
 ```
-
-**Response:**
 
 ```json
 {
@@ -24,58 +22,73 @@ Receive real-time delivery events for emails you send. NotificationGate signs ev
 }
 ```
 
-Store the `secret` securely — it's shown only once and is used to verify payload signatures.
+Store the `secret` securely — shown only once.
 
 ## Events
 
-| Event | When |
-|-------|------|
-| `email.sent` | Email accepted by SES |
-| `email.delivered` | Delivery confirmed by receiving server |
-| `email.bounced` | Hard or soft bounce received |
-| `email.complained` | Spam complaint received |
-| `email.failed` | Sending failed (invalid address, etc.) |
+| event_type | When |
+|------------|------|
+| `email.bounced` | Hard or soft bounce received from SES |
+| `email.complained` | Spam complaint received from SES |
 
 ## Payload
 
 ```json
 {
-  "event": "email.bounced",
+  "event_type": "email.bounced",
   "email_id": "01234567-89ab-cdef-0123-456789abcdef",
   "recipient": "user@example.com",
-  "stream": "transactional",
   "timestamp": "2026-05-19T10:00:00Z",
   "data": {
-    "bounce_type": "Permanent",
-    "bounce_subtype": "General"
+    "bounce_type": "hard",
+    "reason": "550 5.1.1 The email account does not exist"
   }
 }
 ```
 
-## Signature verification
+```json
+{
+  "event_type": "email.complained",
+  "email_id": "01234567-89ab-cdef-0123-456789abcdef",
+  "recipient": "user@example.com",
+  "timestamp": "2026-05-19T10:00:00Z",
+  "data": {}
+}
+```
 
-All webhook requests include an `X-Webhook-Signature` header containing the HMAC-SHA256 hex digest of the raw request body. See [Webhook Signatures](/webhook-signatures) for verification examples.
+## Get webhook
 
-## List webhooks
-
-**GET** `https://notificationgate.com/api/v1/webhooks`
+**GET** `/v1/webhooks`
 
 ## Delete webhook
 
-**DELETE** `https://notificationgate.com/api/v1/webhooks/:id`
+**DELETE** `/v1/webhooks`
+
+Returns `204 No Content`.
 
 ## Delivery logs
 
-**GET** `https://notificationgate.com/api/v1/webhooks/logs`
+**GET** `/v1/webhooks/logs`
 
-Returns recent delivery attempts with HTTP status codes and response bodies. Useful for debugging failed deliveries.
+Returns recent delivery attempts with HTTP status code and response body.
 
-## Replay failed delivery
+| Param | Default | Description |
+|-------|---------|-------------|
+| `limit` | 50 | Max results (max 100) |
+| `offset` | 0 | Pagination offset |
 
-**POST** `https://notificationgate.com/api/v1/webhooks/deliveries/:id/replay`
+## Replay a delivery
 
-Re-sends a specific webhook delivery. Returns `200 OK` on success.
+**POST** `/v1/webhooks/deliveries/:id/replay`
+
+Re-queues a specific delivery. Returns `202 Accepted`.
+
+## Test
+
+**POST** `/v1/webhooks/test`
+
+Sends a test event to your webhook URL and returns the HTTP status and response time.
 
 ## Retry policy
 
-Failed deliveries are retried with exponential backoff: 1 min, 5 min, 30 min, 2 hours, 8 hours. After 5 failures the delivery is marked as abandoned.
+Failed deliveries are retried with exponential backoff: **1 min → 5 min → 30 min → 2 hours**. After 4 failures the delivery is abandoned.
